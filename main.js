@@ -1,6 +1,5 @@
-// Jacob Lockwood
-// Fixed-arity LPA implemented in "Whitney JS"
-////////////////////////////////////////////////////////////
+// Jacob Lockwood : WJS-LPA
+
 g=(d,f)=>f?d&&f(d):d
 prs=s=>{let bdg={}
 ,r=a=>new RegExp("^"+a.raw[0]).exec(s=s.replace(/^ +/,""))
@@ -36,12 +35,12 @@ prs=s=>{let bdg={}
  return out}
 
 
-dsp=(n,[a,b,c]=n)=>!b?".xy"[a]
- :b[0]=="S"?`(${n.slice(2).map(v=>dsp(v)).join` `})`
+fmt=(n,[a,b,c]=n)=>!b?".xy"[a]
+ :b[0]=="S"?`(${n.slice(2).map(v=>fmt(v)).join` `})`
  :b=="N"||b=="R"?c:b=="C"?`'${c}'`:b=="T"?`"${c}"`
- :b[0]>2?(b[3]?dsp(b[3]):"")+b[1]+dsp(b[2])
- :a.map?`(${dsp(b)} ${dsp(a)}${c?" "+dsp(c):""})`
- :b.map?a?`{${dsp(b)}}`:dsp(b):b
+ :b[0]>2?(b[3]?fmt(b[3]):"")+b[1]+fmt(b[2])
+ :a.map?`(${fmt(b)} ${fmt(a)}${c?" "+fmt(c):""})`
+ :b.map?a?`{${fmt(b)}}`:fmt(b):b
 
 mrg=a=>[[a.length,...a[0][0]],a.flatMap(v=>v[1])]
 ev=(n,arg,[a,b,c]=n,r=v=>ev(v,arg))=>!b?arg[a-1]
@@ -57,5 +56,5 @@ prv=f=>(x,y)=>!y?[x[0],x[1].map(v=>f(v))]
 fns={"+":[2,(x,y)=>[[],[x[1][0]+y[1][0]]]]}
 bdg={}
 for(l of prs(s=require("fs").readFileSync(0)+"")){
- console.log("    "+(l[0]=="B"?l[1]+": "+dsp(l[2]):dsp(l)))
+ console.log("    "+(l[0]=="B"?l[1]+": "+fmt(l[2]):fmt(l)))
  console.log(JSON.stringify(ev(l)))}
