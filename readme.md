@@ -1,0 +1,5 @@
+WJS-LPA: fixed-arity LPA implemented in "Whitney JS" style
+
+- LPA: this is derived from APL, but evaluates from left to right. this means monadic application is postfix rather than prefix, and monadic modifiers are prefix rather than postfix.
+- fixed-arity: similar to my larger project [FIXAPL](https://fixapl.netlify.app), each function here has a statically-determined arity/adicity/argument count, which influences train rules. also similar to Jelly.
+- WJS/"Whitney JS": Arthur Whitney is known for, among many other things, his peculiar style of writing C code. see the [Incunabulum](https://code.jsoftware.com/wiki/Essays/Incunabulum) for a taste. I always found this style fascinating and, though I don't think I will use it again in another large project, have found it pretty fun to try and emulate through JavaScript here. 
