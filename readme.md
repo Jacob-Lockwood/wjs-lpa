@@ -7,5 +7,3 @@ WJS-LPA: fixed-arity LPA implemented in "Whitney JS" style
 this project is in an early stage! the parser is fully functional but the interpreter is not so!
 
 the language uses the flat array model. currently the only array types are character and number. currently the only built-in function available is `+` to add two arrays of numbers.
-
-do whatever you want with the code, just leave the author notice at the top!
