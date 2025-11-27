@@ -51,10 +51,15 @@ ev=(n,arg,[a,b,c]=n,r=v=>ev(v,arg))=>!b?arg[a-1]
  :a.map?r(a)(r(b),g(c,r))
  :b.map?a?(...s)=>ev(b,s):ev(b)
  :fns[b][1]
+mch=(a,b,q=Object.is)=>a.length==b.length&&a.every((v,i)=>q(v,b[i]))
+pfm=(a,b,l=Math.min(a.length,b.length),v=a.slice(0,l))=>
+ mch(v,b.slice(0,l))&&v
 prv=f=>(x,y)=>!y?[x[0],x[1].map(v=>f(v))]
- :0
+ :g(pfm(x[0],y[0]),p=>p)
 fns={"+":[2,(x,y)=>[[],[x[1][0]+y[1][0]]]]}
 bdg={}
-for(l of prs(s=require("fs").readFileSync(0)+"")){
- console.log("    "+(l[0]=="B"?l[1]+": "+fmt(l[2]):fmt(l)))
- console.log(JSON.stringify(ev(l)))}
+
+console.log(pfm([3],[3,2]))//[[3],[1,2,3]],[[],[1]]))
+// for(l of prs(s=require("fs").readFileSync(0)+"")){
+//  console.log("    "+(l[0]=="B"?l[1]+": "+fmt(l[2]):fmt(l)))
+//  console.log(JSON.stringify(ev(l)))}
