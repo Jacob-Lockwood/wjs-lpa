@@ -52,14 +52,22 @@ ev=(n,arg,[a,b,c]=n,r=v=>ev(v,arg))=>!b?arg[a-1]
  :b.map?a?(...s)=>ev(b,s):ev(b)
  :fns[b][1]
 mch=(a,b,q=Object.is)=>a.length==b.length&&a.every((v,i)=>q(v,b[i]))
-pfm=(a,b,l=Math.min(a.length,b.length),v=a.slice(0,l))=>
- mch(v,b.slice(0,l))&&v
-prv=f=>(x,y)=>!y?[x[0],x[1].map(v=>f(v))]
- :g(pfm(x[0],y[0]),p=>p)
-fns={"+":[2,(x,y)=>[[],[x[1][0]+y[1][0]]]]}
+pfm=(a,b,l=Math.min(a.length,b.length))=>mch(a.slice(0,l),b.slice(0,l))
+prv=f=>
+ (x,y,dx=x[1],dy=y?.[1],sx=x[0],sy=y?.[0],rx=sx.length,ry=sy?.length)=>
+ !y?[sx,dx.map(v=>f(v))]
+ :mch(sx,sy)?[sx,dx.map((v,i)=>f(v,dy[i]))]
+ :!pfm(sx,sy)?X
+ :rx<ry?[sy,dy.map((v,i)=>f(dx[i*dx.length/dy.length|0],v))]
+ :[sx,dx.map((v,i)=>f(v,dy[i*dy.length/dx.length|0]))]
+
+pty=([s,d])=>d.slice(0,s[0]).map((l,i)=>s.length<2?l
+  :`(${pty([s.slice(1),d.slice(i*(l=d.length/s[0]),++i*l)])})`
+ ).join` `
+
+fns={"+":[2,prv((x,y)=>x+y)]}
 bdg={}
 
-console.log(pfm([3],[3,2]))//[[3],[1,2,3]],[[],[1]]))
-// for(l of prs(s=require("fs").readFileSync(0)+"")){
-//  console.log("    "+(l[0]=="B"?l[1]+": "+fmt(l[2]):fmt(l)))
-//  console.log(JSON.stringify(ev(l)))}
+for(l of prs(s=require("fs").readFileSync(0)+"")){
+  console.log("    "+(l[0]=="B"?l[1]+": "+fmt(l[2]):fmt(l)))
+  console.log(pty(ev(l)))}
