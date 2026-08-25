@@ -76,10 +76,12 @@ let bdg={}
 // mf`g name`(x)
 // f=(a,v)=>{v=X;X=s=>v()}
 ,prd=s=>s.reduce((x,y)=>x*y,1)
+,rep=(n,a)=>Array(n).fill(a).flat()
 ,[pm,pd]=[mf,df].map(g=>s=>f=>g(s)(prv(f)))
 ,t=v=>["number","string","object"].indexOf(typeof(v.s?v[0]:v))
 ,ch=String.fromCodePoint,od=c=>c.codePointAt(0)
 ,L=(...x)=>console.log(...x)
+,rec=(f,g=(...x)=>f(g,...x))=>g
 
 mf`∘ id`(x=>x);df`⊣ lft`(x=>x);df`⊢ rgt`((x,y)=>y)
 mf`, rav`(x=>A([...x]))
@@ -95,11 +97,17 @@ pd`- sub`((x,y,tx=t(x),ty=t(y))=>
 pd`× mul`((x,y)=>t(x)+t(y)?X`x<-y<-n`:x*y)
 pd`÷ div`((x,y)=>t(x)+t(y)?X`x<-y<-n`:x/y)
 
-df`↯ res`((x,y,l=prd(y))=>
- A(Array(Math.ceil(l/x.length)).fill(x).flat().slice(0,l),y))
 mf`⇌ rev`(x=>mrg(rws(x).reverse()))
-// df`⊂ joi`((x,y)=>x+y)
-// rank-generic join
+df`↯ res`((x,y,l=prd(y))=>A(rep(Math.ceil(l/x.length),x).slice(0,l),y))
+df`⊂ joi`(rec((j,x,y,
+ rx=x.s.length,ry=y.s.length,xsf=x.s.slice(1),ysf=y.s.slice(1)
+ )=>t(x)!=t(y)?X`tx=ty`
+ :rx==ry+1?j(x,A([...y],[1,...y.s]))
+ :ry==rx+1?j(A([...x],[1,...x.s]),y)
+ :rx==ry&&mch(xsf,ysf)?A([...x,...y],[(x.s[0]??1)+(y.s[0]??1),...xsf])
+ :rx==0?j(A(rep(prd(ysf),x),[1,...ysf]),y)
+ :ry==0?j(x,A(rep(prd(xsf),y),[1,...xsf]))
+ :X`x and y must have matching cells`))
 mf`⇡ ran`(x=>R(x)?X`x<-sc`:A([...Array(x[0]).keys()]))
 mm`˙ slf`(a=>[1,f=>    x=>a?f(x,x):f])
 mm`˜ bac`(a=>[2,f=>(x,y)=>a?f(y,x):f])
