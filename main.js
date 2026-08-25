@@ -70,17 +70,14 @@ let bdg={}
 ,[mf,df,mm,dm]=[1,2,3,4].map(n=>
   (_,s=_.raw[0],g=s[0],m=s.slice(2))=>x=>(
    fns[m]=fns[g]=[n,g,
-    r[m]=r[g]=(...a)=>(_=X,X=s=>_(g+" ! "+s),a=x(...a),X=_,a)]
+    r[m]=r[g]=(...a)=>(_=X,X=s=>_(g+" "+s),a=x(...a),X=_,a)]
    ))
-// ,mf=(_)
-// mf`g name`(x)
-// f=(a,v)=>{v=X;X=s=>v()}
 ,prd=s=>s.reduce((x,y)=>x*y,1)
 ,rep=(n,a)=>Array(n).fill(a).flat()
 ,[pm,pd]=[mf,df].map(g=>s=>f=>g(s)(prv(f)))
 ,t=v=>["number","string","object"].indexOf(typeof(v.s?v[0]:v))
 ,ch=String.fromCodePoint,od=c=>c.codePointAt(0)
-,L=(...x)=>console.log(...x)
+,C=console,L=C.log
 ,rec=(f,g=(...x)=>f(g,...x))=>g
 
 mf`∘ id`(x=>x);df`⊣ lft`(x=>x);df`⊢ rgt`((x,y)=>y)
@@ -119,4 +116,6 @@ dm`⟜ aft`((r,l)=>!l||l+r<2?X`g<-`
 //dm`⊸ bef`
 
 for(let[s,p]of prs(require("fs").readFileSync(0)+"")){
- L("    "+s);p&&L(typeof(p=ev(p))=="function"?"fn":pty(p))}
+ L("    "+s)
+ try{p&&L(typeof(p=ev(p))=="function"?"fn":pty(p))}
+ catch(e){C.error("ERR!",e)}}
