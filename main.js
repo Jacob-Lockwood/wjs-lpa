@@ -106,14 +106,19 @@ df`⊂ joi`(rec((j,x,y,
  :rx==ry&&mch(xsf,ysf)?A([...x,...y],[(x.s[0]??1)+(y.s[0]??1),...xsf])
  :X`x and y must have matching cells`))
 mf`⇡ ran`(x=>R(x)?X`x<-sc`:A([...Array(x[0]).keys()]))
+
 mm`˙ slf`(a=>[1,f=>    x=>a?f(x,x):f])
 mm`˜ bac`(a=>[2,f=>(x,y)=>a?f(y,x):f])
 mm`/ red`(a=>a<2?X`f<-dy`:[1,f=>x=>rws(x).reduce((a,b)=>f(a,b))])
 mm`\ sca`(a=>a<2?X`f<-dy`
  :[1,f=>x=>mrg(rws(x).map((a,i)=>x=i?f(x,a):a))])
-dm`⟜ aft`((r,l)=>!l||l+r<2?X`g<-`
- :[r>1?2:1,(f,g)=>(x,y,v=r?f(x,y):f)=>l>1?g(x,v):g(v)])
-//dm`⊸ bef`
+dm`⊸ bef`((r,l)=>!r?X`g!=0`
+ :!l?r==1?[0,(g,f)=>g(f)]:[1,(g,f)=>x=>g(f,x)]
+ :r==1?[l,(g,f)=>(x,y)=>g(l==1?f(x):f(x,y))]
+      :[2,(g,f)=>(x,y)=>g(r==1?f(x):f(x,y),y)])
+dm`⟜ aft`((r,l)=>!l?X`f!=0`
+ :!r?l==1?[0,(g,f)=>f(g)]:[1,(g,f)=>x=>f(x,g)]
+ :[r,(g,f)=>(x,y)=>(l==1?f:y=>f(x,y))(r==1?g(x):g(x,y))])
 
 for(let[s,p]of prs(require("fs").readFileSync(0)+"")){
  L("    "+s)
