@@ -82,9 +82,6 @@ let bdg={}
 ,rec=(f,g=(...x)=>f(g,...x))=>g
 
 mf`⋅ id`(x=>x);df`⊣ lft`((x,_)=>x);df`⊢ rgt`((_,y)=>y)
-mf`, rav`(x=>A([...x]))
-mf`△ sha`(x=>A(x.s))
-mf`⧻ len`(x=>S(x.s[0]??1))
 
 pm`⌵ abs`(Math.abs)
 pm`± sig`(Math.sign)
@@ -95,7 +92,10 @@ pd`- sub`((x,y,tx=t(x),ty=t(y))=>
 pd`× mul`((x,y)=>t(x)+t(y)?X`x=y=n`:x*y)
 pd`÷ div`((x,y)=>t(x)+t(y)?X`x=y=n`:x/y)
 
+mf`⧻ len`(x=>S(x.s[0]??1));mf`△ sha`(x=>A(x.s))
+mf`, rav`(x=>A([...x]))
 mf`⇌ rev`(x=>mrg(rws(x).reverse()))
+mf`⇡ ran`(x=>R(x)?X`x=sc`:A([...Array(x[0]).keys()]))
 df`↯ res`((x,y,l=prd(y))=>A(rep(Math.ceil(l/x.length),x).slice(0,l),y))
 mf`¤ fix`(x=>r.res(x,[1,...x.s]))
 df`⊂ joi`(rec((j,x,y,rx=R(x),ry=R(y),xsf=x.s.slice(1),ysf=y.s.slice(1)
@@ -104,13 +104,12 @@ df`⊂ joi`(rec((j,x,y,rx=R(x),ry=R(y),xsf=x.s.slice(1),ysf=y.s.slice(1)
  :ry<rx?j(x,r.res(y,[...rx-ry==1?[1]:x.s.slice(1,rx-ry),...y.s]))
  :rx==ry&&mch(xsf,ysf)?A([...x,...y],[(x.s[0]??1)+(y.s[0]??1),...xsf])
  :X`x and y must have matching cells`))
-mf`⇡ ran`(x=>R(x)?X`x=sc`:A([...Array(x[0]).keys()]))
 
-mm`˜ bac`(a=>[2,g=>(x,y)=>a?g(y,x):g])
-mm`˙ slf`(a=>[1,g=>    x=>a?g(x,x):g])
 mm`/ red`(a=>a<2?X`g=2`:[1,g=>x=>rws(x).reduce((a,b)=>g(a,b))])
 mm`\ sca`(a=>a<2?X`g=2`
  :[1,g=>x=>mrg(rws(x).map((a,i)=>x=i?g(x,a):a))])
+mm`˜ bac`(a=>[2,g=>(x,y)=>a?g(y,x):g])
+mm`˙ slf`(a=>[1,g=>    x=>a?g(x,x):g])
 dm`⊸ bef`((r,l)=>!r?X`g!=0`
  :!l?r==1?[0,(g,f)=>g(f)]:[1,(g,f)=>x=>g(f,x)]
  :r==1?[l,(g,f)=>(x,y)=>g(l==1?f(x):f(x,y))]
