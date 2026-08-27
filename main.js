@@ -52,7 +52,8 @@ let bdg={}
   :a.map?r(a)(r(b),g(c,r))
   :b.map?a?(...s)=>ev(b,s):ev(b)
   :fns[b][2]
-,pty=(d,s=d.s)=>s.length*t(d[0])==1?`"${d.join``}"`
+,pty=(d,s=d.s)=>d.length==0?"()":
+ s.length*t(d[0])==1?`"${d.join``}"`
   :d.slice(0,s[0]).map((l,i)=>s.length<2?t(l)?l:l<0?"¯"+-l:l
    :`(${pty(A(d.slice(i*(l=d.length/s[0]),++i*l),s.slice(1)))})`
   ).join` `
