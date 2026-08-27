@@ -106,11 +106,11 @@ df`⊂ joi`(rec((j,x,y,rx=R(x),ry=R(y),xsf=x.s.slice(1),ysf=y.s.slice(1)
  :X`x and y must have matching cells`))
 mf`⇡ ran`(x=>R(x)?X`x=sc`:A([...Array(x[0]).keys()]))
 
-mm`˙ slf`(a=>[1,f=>    x=>a?f(x,x):f])
-mm`˜ bac`(a=>[2,f=>(x,y)=>a?f(y,x):f])
-mm`/ red`(a=>a<2?X`f=2`:[1,f=>x=>rws(x).reduce((a,b)=>f(a,b))])
-mm`\ sca`(a=>a<2?X`f=2`
- :[1,f=>x=>mrg(rws(x).map((a,i)=>x=i?f(x,a):a))])
+mm`˜ bac`(a=>[2,g=>(x,y)=>a?g(y,x):g])
+mm`˙ slf`(a=>[1,g=>    x=>a?g(x,x):g])
+mm`/ red`(a=>a<2?X`g=2`:[1,g=>x=>rws(x).reduce((a,b)=>g(a,b))])
+mm`\ sca`(a=>a<2?X`g=2`
+ :[1,g=>x=>mrg(rws(x).map((a,i)=>x=i?g(x,a):a))])
 dm`⊸ bef`((r,l)=>!r?X`g!=0`
  :!l?r==1?[0,(g,f)=>g(f)]:[1,(g,f)=>x=>g(f,x)]
  :r==1?[l,(g,f)=>(x,y)=>g(l==1?f(x):f(x,y))]
