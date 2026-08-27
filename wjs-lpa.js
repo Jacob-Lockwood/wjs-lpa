@@ -120,10 +120,3 @@ dm`⟜ aft`((r,l)=>!l?X`f!=0`
  :[r,(g,f)=>(x,y)=>(l==1?f:y=>f(x,y))(r==1?g(x):g(x,y))])
 
 export{prs,ev,pty}
-
-let C=console,L=C.log,E=C.error
-try{for(let[s,p]of prs(require("fs").readFileSync(0)+"")){
- L("    "+s)
- try{p&&L(typeof(p=ev(p))=="function"?"fn":pty(p))
- }catch(e){E("EVAL ERR!",e)}}
-}catch(e){E("PARSE ERR!",e)}
