@@ -1,4 +1,5 @@
 // Jacob Lockwood : WJS-LPA
+// error message key: f∘g xfy sc=scalar t=type n=num
 
 let g=(d,f)=>f?d&&f(d):d,X=e=>{throw""+e},
 prs=s=>{let bdg={},fs=""
@@ -78,7 +79,6 @@ let bdg={}
 ,[pm,pd]=[mf,df].map(g=>s=>f=>g(s)(prv(f)))
 ,t=v=>["number","string","object"].indexOf(typeof(v.s?v[0]:v))
 ,ch=String.fromCodePoint,od=c=>c.codePointAt(0)
-,C=console,L=C.log
 ,rec=(f,g=(...x)=>f(g,...x))=>g
 
 mf`⋅ id`(x=>x);df`⊣ lft`((x,_)=>x);df`⊢ rgt`((_,y)=>y)
@@ -119,9 +119,11 @@ dm`⟜ aft`((r,l)=>!l?X`f!=0`
  :!r?l==1?[0,(g,f)=>f(g)]:[1,(g,f)=>x=>f(x,g)]
  :[r,(g,f)=>(x,y)=>(l==1?f:y=>f(x,y))(r==1?g(x):g(x,y))])
 
-// error message key: f∘g xfy sc=scalar t=type n=num
+export{prs,ev,pty}
+
+let C=console,L=C.log,E=C.error
 try{for(let[s,p]of prs(require("fs").readFileSync(0)+"")){
  L("    "+s)
  try{p&&L(typeof(p=ev(p))=="function"?"fn":pty(p))
- }catch(e){C.error("EVAL ERR!",e)}}
-}catch(e){C.error("PARSE ERR!",e)}
+ }catch(e){E("EVAL ERR!",e)}}
+}catch(e){E("PARSE ERR!",e)}
