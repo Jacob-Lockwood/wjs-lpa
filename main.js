@@ -120,7 +120,8 @@ dm`⟜ aft`((r,l)=>!l?X`f!=0`
  :!r?l==1?[0,(g,f)=>f(g)]:[1,(g,f)=>x=>f(x,g)]
  :[r,(g,f)=>(x,y)=>(l==1?f:y=>f(x,y))(r==1?g(x):g(x,y))])
 
-for(let[s,p]of prs(require("fs").readFileSync(0)+"")){
+try{for(let[s,p]of prs(require("fs").readFileSync(0)+"")){
  L("    "+s)
- try{p&&L(typeof(p=ev(p))=="function"?"fn":pty(p))}
- catch(e){C.error("ERR!",e)}}
+ try{p&&L(typeof(p=ev(p))=="function"?"fn":pty(p))
+ }catch(e){C.error("EVAL ERR!",e)}}
+}catch(e){C.error("PARSE ERR!",e)}
