@@ -105,6 +105,13 @@ df`⊂ joi`(rec((j,x,y,rx=R(x),ry=R(y),xsf=x.s.slice(1),ysf=y.s.slice(1)
  :rx==ry&&mch(xsf,ysf)?A([...x,...y],[(x.s[0]??1)+(y.s[0]??1),...xsf])
  :X`x and y must have matching cells`))
 
+mm`≡ row`(r=>[r,
+  r==1?g=>x=>mrg(rws(x).map(r=>g(r)))
+ :r==2?g=>(x,y,rx=rws(x),ry=rws(y))=>mrg(
+   rx.length==1?ry.map(r=>g(rx[0],r))
+  :ry.length==1?rx.map(r=>g(r,ry[0]))
+  :x.s[0]!=y.s[0]?X`x⧻=y⧻`:rx.map((r,i)=>g(r,ry[i])))
+ :X`g!=0`])
 mm`/ red`(r=>r<2?X`g=2`:[1,g=>x=>rws(x).reduce((a,b)=>g(a,b))])
 mm`\ sca`(r=>r<2?X`g=2`
  :[1,g=>x=>mrg(rws(x).map((a,i)=>x=i?g(x,a):a))])
